@@ -6,7 +6,7 @@ function App() {
   const [category, setCategory] = useState('FOOD');
   const [description, setDescription] = useState('');
   const [costItems, setCostItems] = useState([]);
-  const [editIndex, setEditIndex] = useState(-1); // Index of the item being edited
+  const [editIndex, setEditIndex] = useState(-1);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,6 +26,7 @@ function App() {
     setDescription('');
   };
 
+
   const handleEdit = (index) => {
     const editedItem = costItems[index];
     setSum(editedItem.sum);
@@ -40,7 +41,7 @@ function App() {
     setCostItems(updatedCostItems);
     setEditIndex(-1);
     setSum('');
-    setCategory('');
+    setCategory('FOOD');
     setDescription('');
   };
 
@@ -53,9 +54,54 @@ function App() {
 
   return (
       <div className="App container">
-        <h1 className="my-4">Cost Manager App</h1>
         <form className="mb-4" onSubmit={handleSubmit}>
-          {/* ... (your existing form fields) */}
+          <div className="mb-3">
+            <label htmlFor="category" className="form-label">
+              Category:
+            </label>
+            <select
+                className="form-select"
+                id="category"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+            >
+              <option value="FOOD">FOOD</option>
+              <option value="HEALTH">HEALTH</option>
+              <option value="EDUCATION">EDUCATION</option>
+              <option value="TRAVEL">TRAVEL</option>
+              <option value="HOUSING">HOUSING</option>
+              <option value="CLOTHING">CLOTHING</option>
+              <option value="TECHNOLOGY">TECHNOLOGY</option>
+              <option value="OTHER">OTHER</option>
+            </select>
+          </div>
+          <div className="mb-3">
+            <label htmlFor="sum" className="form-label">
+              Sum:
+            </label>
+            <input
+                type="number"
+                className="form-control"
+                id="sum"
+                value={sum}
+                onChange={(e) => setSum(Math.max(0, e.target.value))}
+                required
+                min="0"
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="description" className="form-label">
+              Description:
+            </label>
+            <input
+                type="text"
+                className="form-control"
+                id="description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                required
+            />
+          </div>
           <button type="submit" className="btn btn-primary">
             {editIndex === -1 ? 'Add Cost Item' : 'Update Cost Item'}
           </button>
