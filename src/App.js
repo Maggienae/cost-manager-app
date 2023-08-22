@@ -5,12 +5,12 @@ function App() {
   const [sum, setSum] = useState('');
   const [category, setCategory] = useState('FOOD');
   const [description, setDescription] = useState('');
-  const [costList, setCostList] = useState([]);
+  const [costItems, setCostItems] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const newCostItem = { sum, category, description };
-    setCostList([...costList, newCostItem]);
+    setCostItems([...costItems, newCostItem]);
     setSum('');
     setCategory('FOOD');
     setDescription('');
@@ -18,7 +18,7 @@ function App() {
 
   return (
       <div className="App">
-        <h1>Cost Manager</h1>
+        <h1>Cost Manager App</h1>
         <form onSubmit={handleSubmit}>
           <label htmlFor="sum">Sum:</label>
           <input
@@ -36,7 +36,12 @@ function App() {
               value={category}
               onChange={(e) => setCategory(e.target.value)}
           >
-            {/* List of categories */}
+            <option value="FOOD">FOOD</option>
+            <option value="HEALTH">HEALTH</option>
+            <option value="EDUCATION">EDUCATION</option>
+            <option value="TRAVEL">TRAVEL</option>
+            <option value="HOUSING">HOUSING</option>
+            <option value="OTHER">OTHER</option>
           </select>
           <br />
 
@@ -50,16 +55,19 @@ function App() {
           />
           <br />
 
-          <button type="submit">Add Cost</button>
+          <button type="submit">Add Cost Item</button>
         </form>
-        <div id="costList">
-          {costList.map((item, index) => (
-              <div className="cost-item" key={index}>
-                <strong>Category:</strong> {item.category}<br />
-                <strong>Sum:</strong> {item.sum}<br />
-                <strong>Description:</strong> {item.description}
-              </div>
-          ))}
+        <div className="cost-list">
+          <h2>Cost Items</h2>
+          <ul>
+            {costItems.map((item, index) => (
+                <li key={index}>
+                  <strong>Category:</strong> {item.category} |{' '}
+                  <strong>Sum:</strong> {item.sum} |{' '}
+                  <strong>Description:</strong> {item.description}
+                </li>
+            ))}
+          </ul>
         </div>
       </div>
   );
