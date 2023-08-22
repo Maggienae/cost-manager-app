@@ -6,6 +6,7 @@ function App() {
   const [category, setCategory] = useState('FOOD');
   const [description, setDescription] = useState('');
   const [costItems, setCostItems] = useState([]);
+  const [date, setDate] = useState('');
   const [editIndex, setEditIndex] = useState(-1);
 
   const handleSubmit = (e) => {
