@@ -6,68 +6,146 @@ function App() {
   const [category, setCategory] = useState('FOOD');
   const [description, setDescription] = useState('');
   const [costItems, setCostItems] = useState([]);
+  const [editIndex, setEditIndex] = useState(-1); // Index of the item being edited
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newCostItem = { sum, category, description };
-    setCostItems([...costItems, newCostItem]);
+    if (editIndex === -1) {
+      // Adding a new item
+      const newCostItem = { sum, category, description };
+      setCostItems([...costItems, newCostItem]);
+    } else {
+      // Updating an existing item
+      const updatedCostItems = [...costItems];
+      updatedCostItems[editIndex] = { sum, category, description };
+      setCostItems(updatedCostItems);
+      setEditIndex(-1); // Reset editIndex
+    }
     setSum('');
     setCategory('FOOD');
     setDescription('');
   };
 
+  const handleEdit = (index) => {
+    const editedItem = costItems[index];
+    setSum(editedItem.sum);
+    setCategory(editedItem.category);
+    setDescription(editedItem.description);
+    setEditIndex(index);
+  };
+
+  const handleSave = (index) => {
+    const updatedCostItems = [...costItems];
+    updatedCostItems[index] = { sum, category, description };
+    setCostItems(updatedCostItems);
+    setEditIndex(-1);
+    setSum('');
+    setCategory('');
+    setDescription('');
+  };
+
+  const handleDelete = (index) => {
+    const updatedCostItems = [...costItems];
+    updatedCostItems.splice(index, 1);
+    setCostItems(updatedCostItems);
+    setEditIndex(-1);
+  };
+
   return (
-      <div className="App">
-        <h1>Cost Manager App</h1>
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="sum">Sum:</label>
-          <input
-              type="number"
-              id="sum"
-              value={sum}
-              onChange={(e) => setSum(e.target.value)}
-              required
-          />
-          <br />
-
-          <label htmlFor="category">Category:</label>
-          <select
-              id="category"
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-          >
-            <option value="FOOD">FOOD</option>
-            <option value="HEALTH">HEALTH</option>
-            <option value="EDUCATION">EDUCATION</option>
-            <option value="TRAVEL">TRAVEL</option>
-            <option value="HOUSING">HOUSING</option>
-            <option value="OTHER">OTHER</option>
-          </select>
-          <br />
-
-          <label htmlFor="description">Description:</label>
-          <input
-              type="text"
-              id="description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              required
-          />
-          <br />
-
-          <button type="submit">Add Cost Item</button>
+      <div className="App container">
+        <h1 className="my-4">Cost Manager App</h1>
+        <form className="mb-4" onSubmit={handleSubmit}>
+          {/* ... (your existing form fields) */}
+          <button type="submit" className="btn btn-primary">
+            {editIndex === -1 ? 'Add Cost Item' : 'Update Cost Item'}
+          </button>
         </form>
         <div className="cost-list">
-          <h2>Cost Items</h2>
-          <ul>
+          <h2 className="my-3">Cost Items</h2>
+          <table className="table">
+            <thead>
+            <tr>
+              <th>Category</th>
+              <th>Sum</th>
+              <th>Description</th>
+              <th>Edit</th>
+              <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
             {costItems.map((item, index) => (
-                <li key={index}>
-                  <strong>Category:</strong> {item.category} |{' '}
-                  <strong>Sum:</strong> {item.sum} |{' '}
-                  <strong>Description:</strong> {item.description}
-                </li>
+                <tr key={index}>
+                  <td>
+                    {editIndex === index ? (
+                        <select
+                            value={category}
+                            onChange={(e) => setCategory(e.target.value)}
+                        >
+                          <option value="FOOD">FOOD</option>
+                          <option value="HEALTH">HEALTH</option>
+                          <option value="EDUCATION">EDUCATION</option>
+                          <option value="TRAVEL">TRAVEL</option>
+                          <option value="HOUSING">HOUSING</option>
+                          <option value="CLOTHING">CLOTHING</option>
+                          <option value="TECHNOLOGY">TECHNOLOGY</option>
+                          <option value="OTHER">OTHER</option>
+                        </select>
+                    ) : (
+                        item.category
+                    )}
+                  </td>
+                  <td>
+                    {editIndex === index ? (
+                        <input
+                            type="number"
+                            value={sum}
+                            onChange={(e) => setSum(Math.max(0, e.target.value))}
+                            min="0"
+                        />
+                    ) : (
+                        item.sum
+                    )}
+                  </td>
+                  <td>
+                    {editIndex === index ? (
+                        <input
+                            type="text"
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                        />
+                    ) : (
+                        item.description
+                    )}
+                  </td>
+                  <td>
+                    {editIndex === index ? (
+                        <button
+                            className="btn btn-primary"
+                            onClick={() => handleSave(index)}
+                        >
+                          Save
+                        </button>
+                    ) : (
+                        <button
+                            className="btn btn-secondary"
+                            onClick={() => handleEdit(index)}
+                        >
+                          Edit
+                        </button>
+                    )}
+                  </td>
+                  <td>
+                    <button
+                        className="btn btn-danger"
+                        onClick={() => handleDelete(index)}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
             ))}
-          </ul>
+            </tbody>
+          </table>
         </div>
       </div>
   );
