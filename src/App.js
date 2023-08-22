@@ -54,6 +54,7 @@ function App() {
 
   return (
       <div className="App container">
+        <h1 className="my-4">Cost Manager App</h1>
         <form className="mb-4" onSubmit={handleSubmit}>
           <div className="mb-3">
             <label htmlFor="category" className="form-label">

@@ -1,6 +1,9 @@
 /* src/App.css */
 body {
-  background-color: white;
+  width: 100vw;
+  height: 100vh;
+  background: url('https://img.freepik.com/free-photo/white-blank-concrete-wall-mockup-with-wooden-floor_53876-102394.jpg?w=826&t=st=1692721123~exp=1692721723~hmac=94e1d29e8e794459f21f1a478fa9b8b87e76ec3613926240f93d420866a424dc');
+  background-size: cover;
   font-family: Monospace, sans-serif;
   margin: 0;
   padding: 20px;
