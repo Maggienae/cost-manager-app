@@ -52,6 +52,16 @@ function App() {
     setEditIndex(-1);
   };
 
+  const categories = ['FOOD', 'HEALTH', 'EDUCATION', 'TRAVEL', 'HOUSING', 'CLOTHING', 'TECHNOLOGY', 'OTHER'];
+
+  const getCategoryTotal = (category) => {
+    return costItems.reduce((total, item) => {
+      if (item.category === category) {
+        return total + parseFloat(item.sum);
+      }
+      return total;
+    }, 0);
+  };
   return (
       <div className="App container">
         <h1 className="my-4">Cost Manager App</h1>
@@ -108,7 +118,7 @@ function App() {
           </button>
         </form>
         <div className="cost-list">
-          <h2 className="my-3">Cost Items</h2>
+          <h2 className="my-3"><strong>Cost Items</strong></h2>
           <table className="table">
             <thead>
             <tr>
@@ -189,6 +199,25 @@ function App() {
                       Delete
                     </button>
                   </td>
+                </tr>
+            ))}
+            </tbody>
+          </table>
+        </div>
+        <div className="total-cost">
+          <h2 className="my-3"><strong> Total Cost Per Category</strong></h2>
+          <table className="table">
+            <thead>
+            <tr>
+              <th>Category</th>
+              <th>Total Cost</th>
+            </tr>
+            </thead>
+            <tbody>
+            {categories.map((cat) => (
+                <tr key={cat}>
+                  <td>{cat}</td>
+                  <td>{getCategoryTotal(cat).toFixed(2)}</td>
                 </tr>
             ))}
             </tbody>
