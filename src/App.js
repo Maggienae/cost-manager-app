@@ -95,8 +95,9 @@ function App() {
                 className="form-control"
                 id="sum"
                 value={sum}
-                onChange={(e) => setSum(Math.max(0, e.target.value))}
+                onChange={(e) => setSum(e.target.value)}
                 required
+                step="0.01"
                 min="0"
             />
           </div>
@@ -156,7 +157,7 @@ function App() {
                         <input
                             type="number"
                             value={sum}
-                            onChange={(e) => setSum(Math.max(0, e.target.value))}
+                            onChange={(e)=> setSum(Math.max(0,parseFloat(e.target.value)))}
                             min="0"
                         />
                     ) : (
