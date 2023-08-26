@@ -1,8 +1,11 @@
+/* Eden Bar 209037571
+   Maggie Nae 208612234
+*/
 /* src/App.css */
 body {
   width: 100vw;
   height: 100vh;
-  background: #FAF9F6;
+  background: #faf9f6;
   background-size: cover;
   font-family: Monospace, sans-serif;
   margin: 0;
@@ -59,7 +62,9 @@ button {
   background-color: lightblue; /* Set header background color to lightblue */
 }
 
-label, input, select {
+label,
+input,
+select {
   display: block;
   margin-bottom: 10px;
 }

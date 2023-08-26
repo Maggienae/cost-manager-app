@@ -1,0 +1,50 @@
+<!--Eden Bar 209037571
+Maggie Nae 208612234
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <script type="module" src="./idb.js"></script>
+  </head>
+  <body>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        async function test() {
+          try {
+            const db = await window.idb.openCostsDB();
+
+            const result1 = await window.idb.addCost({
+              sum: 200,
+              category: "HOUSING",
+              description: "rent for 01.2023",
+            });
+
+            const result2 = await window.idb.addCost({
+              sum: 300,
+              category: "FOOD",
+              description: "food for weekend",
+            });
+
+            if (db) {
+              console.log("Creating DB succeeded");
+            }
+
+            if (result1) {
+              console.log("Adding 1st cost succeeded");
+            }
+
+            if (result2) {
+              console.log("Adding 2nd cost succeeded");
+            }
+          } catch (error) {
+            console.error("Error:", error);
+          }
+        }
+
+        test();
+      });
+    </script>
+  </body>
+</html>
