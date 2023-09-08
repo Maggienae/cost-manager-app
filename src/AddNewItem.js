@@ -2,11 +2,10 @@
    Maggie Nae 208612234
 */
 import React, { useState, useEffect } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./App.css";
 import {
   addCost,
-  getAllCostItems,
   updateCostItem,
   deleteCostItem,
 } from "./idb";
