@@ -1,50 +1,42 @@
-<!--Eden Bar 209037571
-Maggie Nae 208612234
--->
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <title>Title</title>
-    <script type="module" src="./idb.js"></script>
   </head>
   <body>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        async function test() {
-          try {
-            const db = await window.idb.openCostsDB();
+    <script type="module">
+      import * as idb from "./idb.js";
 
-            const result1 = await window.idb.addCost({
-              sum: 200,
-              category: "HOUSING",
-              description: "rent for 01.2023",
-            });
+      async function test() {
+        const db = await idb.openCostsDB("costsdb", 1);
 
-            const result2 = await window.idb.addCost({
-              sum: 300,
-              category: "FOOD",
-              description: "food for weekend",
-            });
+        const result1 = await idb.addCost({
+          sum: 200,
+          category: "HOUSING",
+          description: "rent for 01.2023",
+        });
 
-            if (db) {
-              console.log("Creating DB succeeded");
-            }
+        const result2 = await idb.addCost({
+          sum: 300,
+          category: "FOOD",
+          description: "food for weekend",
+        });
 
-            if (result1) {
-              console.log("Adding 1st cost succeeded");
-            }
-
-            if (result2) {
-              console.log("Adding 2nd cost succeeded");
-            }
-          } catch (error) {
-            console.error("Error:", error);
-          }
+        if (db) {
+          console.log("creating db succeeded");
         }
 
-        test();
-      });
+        if (result1) {
+          console.log("adding 1st cost succeeded");
+        }
+
+        if (result2) {
+          console.log("adding 2nd cost succeeded");
+        }
+      }
+
+      test();
     </script>
   </body>
 </html>
